@@ -16,21 +16,36 @@ var spotify = new Spotify(keys.spotify);
 var command = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
-//Do Bands in Town stuff
-if(command === "concert-this"){
-    console.log("concert");
-} 
+switch (command) {
+    case "concert-this":
+        concert();
+        break;
+    case "spotify-this-song":
+        spotify();
+        break;
+    case "movie-this":
+        movie();
+        break;
+    case "do-what-it-says":
+        whatSays();
+        break;
+    default:
+        console.log("Give me a command you fruit!");
+}
 
-//Do Spotify stuff
-if(command === "spotify-this-song"){
-    console.log("Artist: " + data);
-    console.log("Song: " + data);
-    console.log("Link to song: " + data);
-    console.log("Album: " + data);
-} 
+// --------- Functions --------- //
+function concert(){
+    if(input === ""){
+        console.log("Enter a band you ding dong")
+    } else {
+        console.log("Artist: " + input 
+        + "\n is playing at " + data.venue 
+        + "\n" + data.location 
+        + "\n on " + data.date);        //make sure time is converted to MM/DD/YYYY using moment
+    }
+};
 
-//Do IMDB stuff
-if(command === "movie-this"){
+function movie(){
     var queryUrl = "http://www.omdbapi.com/?t=" + input + "&y=&plot=short&apikey=trilogy";
     var data;
     axios.get(queryUrl)
@@ -57,9 +72,16 @@ if(command === "movie-this"){
             console.log("");
         }
     })
-} 
+};
+
+function spotify(){
+    console.log("Artist: " + data);
+    console.log("Song: " + data);
+    console.log("Link to song: " + data);
+    console.log("Album: " + data);
+}
 
 //Use the fs node package to run stuff from random.txt
-if(command === "do-what-it-says"){
+function whatSays(){
     console.log("doing what you said");
 }

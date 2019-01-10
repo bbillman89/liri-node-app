@@ -6,27 +6,32 @@ var moment = require("moment");
 var Spotify = require("node-spotify-api");
 var keys = require("./keys.js");
 var spotify = new Spotify(keys.spotify);
+var fs = require("fs");
 
 //Input values
 var command = process.argv[2];
 var input = process.argv.slice(3).join(" ");
 
-switch (command) {
-    case "concert-this":
-        concert();
-        break;
-    case "spotify-this-song":
-        spot();
-        break;
-    case "movie-this":
-        movie();
-        break;
-    case "do-what-it-says":
-        whatSays();
-        break;
-    default:    
-    console.log("\nGive me a command you fruit!\n");
+function fruit(){
+    switch (command) {
+        case "concert-this":
+            concert();
+            break;
+        case "spotify-this-song":
+            spot();
+            break;
+        case "movie-this":
+            movie();
+            break;
+        case "do-what-it-says":
+            whatSays();
+            break;
+        default:    
+        console.log("\nGive me a command you fruit!\n");
+    }
 }
+
+fruit();
 
 // --------- Functions --------- //
 function concert(){
@@ -91,5 +96,10 @@ function spot(){
 
 //Use the fs node package to run stuff from random.txt
 function whatSays(){
-    console.log("doing what you said");
+    fs.readFile("random.txt", "utf8", function(error, data){
+        var arrData = data.split(", ");
+        command = arrData[0];
+        input = arrData[1];
+        fruit();
+    });
 }

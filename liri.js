@@ -32,18 +32,18 @@ switch (command) {
 function concert(){
     var queryUrl = "https://rest.bandsintown.com/artists/" + input + "/events?app_id=codingbootcamp";
     var data;
-    axios.get(queryUrl)
-    .then(function(response){
-        data = response.data[0];
-        if(input === ""){
-            console.log("\n\nEnter a band you ding dong\n\n")
-        } else {
+    if (input === ""){
+        console.log("\n\nEnter a band you ding dong\n\n")
+    } else {        
+        axios.get(queryUrl)
+        .then(function(response){
+            data = response.data[0];
             console.log("\n\nArtist: " + input 
             + "\nis playing at " + data.venue.name 
             + "\n" + data.venue.city + ", " + data.venue.country
             + "\non " + moment(data.datetime).format("MM/DD/YYYY") + "\n\n");
-        }
-    })
+        })
+    }
 };
 
 function movie(){
@@ -70,19 +70,23 @@ function movie(){
 
 function spot(){
     var data;
-    spotify.search({type: "track", query: input})
-    .then(function(response){
-        data = response.tracks.items[0];
-        console.log(data.album.artists);
-        console.log("\n\nArtist: " + data.album.artists.name
-        + "\nSong: " + data.name
-        + "\nLink to song: " + data
-        + "\nAlbum: " + data.album.name + "\n\n");
-    })
-    .catch(function(err){
-        //input = "The Sign";
-        console.error(err);
-    })
+    if (input === ""){
+        input = "Free Bird";
+        songSearch();
+    } else {
+        songSearch();
+    }
+    function songSearch(){
+        spotify.search({type: "track", query: input})
+        .then(function(response){
+            data = response.tracks.items[0];
+            console.log(data.album.artists);
+            console.log("\n\nArtist: " + data.album.artists.name
+            + "\nSong: " + data.name
+            + "\nLink to song: " + data
+            + "\nAlbum: " + data.album.name + "\n\n");
+        })
+    }
 }
 
 //Use the fs node package to run stuff from random.txt

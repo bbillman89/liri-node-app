@@ -5,11 +5,7 @@ require("dotenv").config();
 var axios = require("axios")
 
 var Spotify = require("node-spotify-api");
-
-//pass (i think) the keys file into this document
 var keys = require("./keys.js");
-
-//load spotify keys
 var spotify = new Spotify(keys.spotify);
 
 //Input values
@@ -29,19 +25,19 @@ switch (command) {
     case "do-what-it-says":
         whatSays();
         break;
-    default:
-        console.log("Give me a command you fruit!");
+    default:    
+    console.log("\nGive me a command you fruit!\n");
 }
 
 // --------- Functions --------- //
 function concert(){
     if(input === ""){
-        console.log("Enter a band you ding dong")
+        console.log("\n\nEnter a band you ding dong\n\n")
     } else {
-        console.log("Artist: " + input 
+        console.log("\n\nArtist: " + input 
         + "\n is playing at " + data.venue 
         + "\n" + data.location 
-        + "\n on " + data.date);        //make sure time is converted to MM/DD/YYYY using moment
+        + "\n on " + data.date + "\n\n");        //make sure time is converted to MM/DD/YYYY using moment
     }
 };
 
@@ -52,24 +48,17 @@ function movie(){
     .then(function(response){
         data = response.data
         if (input === ""){
-            console.log("");
-            console.log("");
-            console.log("If you haven't watched 'Mr. Nobody,' then you should:\nhttp://www.imdb.com/title/tt0485947/\nIt's on Netflix!");
-            console.log("");
-            console.log("");
+            console.log("\n\nIf you haven't watched 'Mr. Nobody,' then you should\nhttp://www.imdb.com/title/tt0485947/\nIt's on Netflix!\n\n");
         } else {
-            console.log("");
-            console.log("");
-            console.log("Movie title: " + data.Title);
-            console.log("Year: " + data.Year);
-            console.log("IMDB rating: " + data.imdbRating);
-            console.log("Rotten Tomatoes rating: " + data.Rating);
-            console.log("Produced in: " + data.Country);
-            console.log("Language: " + data.Language);
-            console.log("Plot: " + data.Plot);
-            console.log("Actors: " + data.Actors);
-            console.log("");
-            console.log("");
+            console.log(data);
+            console.log("\n\nMovie title: " + data.Title 
+            + "\nYear: " + data.Year
+            + "\nIMDB rating: " + data.imdbRating
+            + "\nRotten Tomatoes rating: " + data.Rating
+            + "\nProduced in: " + data.Country
+            + "\nLanguage: " + data.Language
+            + "\nPlot: " + data.Plot
+            + "\nActors: " + data.Actors + "\n\n");
         }
     })
 };
